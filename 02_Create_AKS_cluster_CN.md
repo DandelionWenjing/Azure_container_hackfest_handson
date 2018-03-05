@@ -18,8 +18,6 @@ az cloud set --name AzureCloud
 az login
 ```  
 
-![az_login](image/az_login.png)  
-
 将网址输入浏览器，出现如下界面：  
 ![az_login_1](image/az_login_1.png)  
 
@@ -28,6 +26,16 @@ az login
  
 登陆自己的账号:  
 ![login_azure](image/login_azure.png)   
+
+<table><tr><td bgcolor=#00000>
+<font color=white size=6 face=“黑体”>字体颜色
+```
+az login
+To sign in, use a web browser to open the page https://aka.ms/devicelogin and enter the code GG42PZ4JB to authenticate.
+```
+</font>
+</td></tr></table>
+
  
 出现如下界面登陆成功：
 ![login_success](image/login_success.png)   
