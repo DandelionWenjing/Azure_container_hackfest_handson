@@ -26,13 +26,13 @@ az login
  
 登陆自己的账号:  
 ![login_azure](image/login_azure.png)   
-
-<table><tr><td bgcolor=#00000>
-<font color=white size=6>
+```
+<font color=gray size = 5>
 az login
 To sign in, use a web browser to open the page https://aka.ms/devicelogin and enter the code GG42PZ4JB to authenticate.
 </font>
-</td></tr></table>
+```
+
 
  
 出现如下界面登陆成功：
