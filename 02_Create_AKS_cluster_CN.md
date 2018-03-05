@@ -1,10 +1,10 @@
 ## 使用Azure Container Service 创建kubernetes 集群
 
-1. 创建AKS集群  
+### 创建AKS集群  
 
 打开cmd窗口，在本文档中我们较多使用Azure CLI工具来进行Azure服务的部署，命令为 “az”:  
 
-* 设定对global Azure进行操作:  
+#### 设定对global Azure进行操作:  
 
 （如果是mooncake Azure, --name选择AzureChinaCLoud） 
 
@@ -12,7 +12,7 @@
 az cloud set --name AzureCloud
 ```
 
-* 登陆Azure账号：  
+#### 登陆Azure账号：  
 
 ```
 az login
@@ -57,14 +57,13 @@ To sign in, use a web browser to open the page https://aka.ms/devicelogin and en
 ]
 ```  
 
-* 请求订阅上的功能标记：  
+#### 请求订阅上的功能标记：  
 
 ```
 az provider register -n Microsoft.ContainerService
 ```
-![provider_register](image/provider_register.png)  
 
-* 创建资源组：  
+#### 创建资源组：  
 
 创建资源组来放k8s集群，-n  集群名称，-l  集群创建地点；  
 
@@ -87,7 +86,7 @@ az group create -n K8SCluster -l eastus
 }
 ```  
 
-* 在Azure上创建kubernetes集群:  
+#### 在Azure上创建kubernetes集群:  
 
 -g 后接参数为资源组，-c后接参数为节点数量，--generate-ssh-keys表示会新建ssh key在本地：
 默认情况下k8s的版本为1.7.7，也可以增加新的参数-k来确认版本  
@@ -96,7 +95,7 @@ az group create -n K8SCluster -l eastus
 az aks create -g K8SCluster -n K8SDeployment -c 1 -k 1.7.7 --generate-ssh-keys
 ```  
 
-* Azure portal后台查看：  
+####  Azure portal后台查看：  
 
 建立此集群可能需要5分钟来建立，这取决于我们在哪里创建以及有什么操作。  
 
