@@ -18,43 +18,37 @@ az cloud set --name AzureCloud
 az login
 ```  
 
-[!az_login](image/az_login.png)  
+![az_login](image/az_login.png)  
 
+将网址输入浏览器，出现如下界面：  
+![az_login_1](image/az_login_1.png)  
 
-将网址输入浏览器，出现如下界面：
+将代码输入到代码框中:  
+![az_login_2](image/az_login_2.png) 
  
-将代码输入到代码框中
- 
-登陆自己的账号：
+登陆自己的账号:  
+![login_azure](image/login_azure.png)   
  
 出现如下界面登陆成功：
- 
-cmd界面显示：
-az login
-To sign in, use a web browser to open the page https://aka.ms/devicelogin and enter the code GG42PZ4JB to authenticate.
-[
-  {
-    "cloudName": "AzureCloud",
-    "id": "f270f3f0-a81d-4673-b27a-b989fab83ca5",
-    "isDefault": true,
-    "name": "Visual Studio Enterprise",
-    "state": "Enabled",
-    "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
-    "user": {
-      "name": "wenzhao@microsoft.com",
-      "type": "user"
-    }
-  }
-]
+![login_success](image/login_success.png)   
 
-•	请求订阅上的功能标记：
-az provider register -n Microsoft.ContainerService
-az provider register -n Microsoft.ContainerService
-Registering is still on-going. You can monitor using 'az provider show -n Microsoft.ContainerService'
+cmd界面显示:  
+![login_result](image/login_result.png)  
 
-•	创建资源组：
-创建资源组来放k8s集群，-n  集群名称，-l  集群创建地点；
+* 请求订阅上的功能标记：  
+
+```
+az provider register -n Microsoft.ContainerService
+```
+![provider_register](image/provider_register.png)  
+
+* 创建资源组：  
+
+创建资源组来放k8s集群，-n  集群名称，-l  集群创建地点；  
+
+```
 az group create -n K8SCluster -l eastus
+```
 az group create -n K8SCluster -l eastus
 {
   "id": "/subscriptions/f270f3f0-a81d-4673-b27a-b989fab83ca5/resourceGroups/K8SCluster",
