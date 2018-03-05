@@ -28,11 +28,9 @@ az login
 ![login_azure](image/login_azure.png)   
 
 <table><tr><td bgcolor=#00000>
-<font color=white size=6 face=“黑体”>字体颜色
-```
+<font color=white size=6>
 az login
 To sign in, use a web browser to open the page https://aka.ms/devicelogin and enter the code GG42PZ4JB to authenticate.
-```
 </font>
 </td></tr></table>
 
