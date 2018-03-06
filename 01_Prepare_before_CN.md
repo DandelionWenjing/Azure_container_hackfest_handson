@@ -32,6 +32,7 @@ https://docs.docker.com/engine/installation/linux/docker-ee/ubuntu/#set-up-the-r
 ![install_docker_for_mac](image/install_docker_for_mac.png)  
 
 安装完成后在命令行输入docker:  
+![docker_result](image/docker_result.png)
 
 确认是否完成安装。
  
