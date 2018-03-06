@@ -90,7 +90,7 @@ portal.azure.com
  
 点击K8SCluster资源组，我们可以看到我们部署的容器服务资源对象：  
 
-![Azure_rc3](image/Azure_rc3.png)  
+![k8scluster](image/k8scluster.png)  
  
 进一步进入部署的资源对象中：  
 
