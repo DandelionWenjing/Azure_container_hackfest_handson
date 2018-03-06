@@ -26,22 +26,23 @@ az acr repository list --name Registry0124 --output table
 
 在Azure portal上创建服务总线：  
 
-![ServiceB](ServiceB.png)  
+![ServiceB](image/ServiceB.png)  
 
 获取服务总线connection string:
 
-![SB_connect](SB_connect.png)  
+![SB_connect](image/SB_connect.png)  
+
 点击网站：https://www.base64encode.org/  
 
 进行编码转换，将转换后的连接字符串填写到secret.yaml中。
 
 在Azure Portal上创建Storage account:
 
-![create_storage](create_storage.png)  
+![create_storage](image/create_storage.png)  
 
 获取 storage connection string:  
 
-![storage_connect](storage_connect.png) 
+![storage_connect](image/storage_connect.png) 
 
 同理进行编码转换后将字符填写到secret.yaml中
 
