@@ -119,7 +119,9 @@ az aks get-versions -g K8SCluster -n K8SDeployment -o table
 az aks upgrade --name K8SDeployment --resource-group K8SCluster --kubernetes-version 1.8.2
 ```
 
-这个步骤可能需要花费一定的时间，在升级过程中会提示unavailable，但是现有的服务不会go down，只是不能部署新服务到集群中。
+这个步骤可能需要花费一定的时间，大约需要二十分钟，如果您时间紧张可以忽略掉该升级步骤；  
+
+在升级过程中会提示unavailable，但是现有的服务不会go down，只是不能部署新服务到集群中。
 
 升级完成结果如下：
 ![upgrade](/image/upgrade.png) 
