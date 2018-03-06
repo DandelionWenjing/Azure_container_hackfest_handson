@@ -1,6 +1,6 @@
 ## 使用Azure Container Service 创建kubernetes 集群
 
-### 创建AKS集群  
+#### 使用az命令行工具  
 
 打开cmd窗口，在本文档中我们较多使用Azure CLI工具来进行Azure服务的部署，命令为 “az”:  
 
@@ -17,12 +17,13 @@ az cloud set --name AzureCloud
 ```
 az login
 ```  
+![azlogin](image/azlogin.png)  
 
 将网址输入浏览器，出现如下界面：  
-![az_login_1](image/az_login_1.png)  
+![az_login1](image/az_login1.png)  
 
 将代码输入到代码框中:  
-![az_login_2](image/az_login_2.png) 
+![az_login2](image/az_login2.png) 
  
 登陆自己的账号:  
 ![login_azure](image/login_azure.png)   
@@ -37,71 +38,53 @@ To sign in, use a web browser to open the page https://aka.ms/devicelogin and en
 ![login_success](image/login_success.png)   
 
 cmd界面显示:  
+![login_success1](image/login_success1.png)
 
-```
-az login
-To sign in, use a web browser to open the page https://aka.ms/devicelogin and enter the code GG42PZ4JB to authenticate.
-[
-  {
-    "cloudName": "AzureCloud",
-    "id": "f270f3f0-a81d-4673-b27a-b989fab83ca5",
-    "isDefault": true,
-    "name": "Visual Studio Enterprise",
-    "state": "Enabled",
-    "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
-    "user": {
-      "name": "wenzhao@microsoft.com",
-      "type": "user"
-    }
-  }
-]
-```  
 
 #### 请求订阅上的功能标记：  
 
 ```
 az provider register -n Microsoft.ContainerService
 ```
+![provider_register](image/provider_register.png)  
 
 #### 创建资源组：  
 
-创建资源组来放k8s集群，-n  集群名称，-l  集群创建地点；  
+创建资源组来放k8s集群:  
+
+-n <集群名称> -l <集群创建地域>  
 
 ```
 az group create -n K8SCluster -l eastus
 ```  
 
-结果如下：
-```
-az group create -n K8SCluster -l eastus
-{
-  "id": "/subscriptions/f270f3f0-a81d-4673-b27a-b989fab83ca5/resourceGroups/K8SCluster",
-  "location": "eastus",
-  "managedBy": null,
-  "name": "K8SCluster",
-  "properties": {
-    "provisioningState": "Succeeded"
-  },
-  "tags": null
-}
-```  
+创建结果如下：
+![create_group](image/create_group.png)
 
 #### 在Azure上创建kubernetes集群:  
 
--g 后接参数为资源组，-c后接参数为节点数量，--generate-ssh-keys表示会新建ssh key在本地：
-默认情况下k8s的版本为1.7.7，也可以增加新的参数-k来确认版本  
+在刚创建的资源组中创建Kubernetes集群：  
+
+-g <资源组名称> -c <节点数量> --generate-ssh-keys <表示新建ssh key在本地> -k <版本信息>
+
+（默认情况下k8s的版本为1.7.7，也可以增加新的参数-k来确认版本）  
 
 ```
 az aks create -g K8SCluster -n K8SDeployment -c 1 -k 1.7.7 --generate-ssh-keys
 ```  
+创建结果如下：
+![create_AKS](image/create_AKS.png)
 
 ####  Azure portal后台查看：  
 
-建立此集群可能需要5分钟来建立，这取决于我们在哪里创建以及有什么操作。  
+建立此集群可能需要5分钟来建立，这取决于创建节点数量等因素。  
 
-这时我们可以进入Azure portal查看后台的创建操作：  
+创建完成后我们可以进入Azure portal查看后台的创建操作：  
 
-进入网址portal.azure.com并登陆自己的Azure账号：  
+进入浏览器输入如下网址并登陆自己的Azure账号：  
+```
+portal.azure.com
+```
 
 点击左侧资源组按钮，查看新建的资源组信息：  
 
