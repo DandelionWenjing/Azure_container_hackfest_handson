@@ -111,9 +111,9 @@ docker tag azure-vote-front registry0124.azurecr.io/azure-vote-front:redis-v1
 docker push registry0124.azurecr.io/azure-vote-front:redis-v1
 docker images
 ```
-![acr_push1](image/acr_push1.png)   
+![docker_push1](image/docker_push1.png)   
 
-![acr_push2](image/acr_push2.png)  
+![docker_push2](image/docker_push2.png)  
 
 ##### 返回推送到容器注册表的结果：
 ```
