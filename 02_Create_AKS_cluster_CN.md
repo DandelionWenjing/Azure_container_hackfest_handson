@@ -27,17 +27,11 @@ az login
  
 登陆自己的账号:  
 ![login_azure](image/login_azure.png)   
-
-结果如下：
-```
-az login
-To sign in, use a web browser to open the page https://aka.ms/devicelogin and enter the code GG42PZ4JB to authenticate.
-```
  
 出现如下界面登陆成功：
 ![login_success](image/login_success.png)   
 
-cmd界面显示:  
+登陆成功后cmd界面显示如下:  
 ![login_success1](image/login_success1.png)
 
 
@@ -102,61 +96,18 @@ portal.azure.com
 
 ![AKS](image/AKS.png) 
  
-这里我们可以看到资源组的信息，包括部署的地点，kubernetes的版本号，agent节点的个数，agent虚机的大小等等。同时还有API server address,假如我们需要将AKS资源与jenkins/VSTS等做devops的工具进行连接的话需要用到该地址与API server相连。  
+这里我们可以看到资源组的信息：  
+
+包括部署的地点，kubernetes的版本号，agent节点的个数，agent虚机的大小等等。  
+
+同时还有API server address,假如我们需要将AKS资源与jenkins/VSTS等做devops的工具进行连接的话需要用到该地址与API server相连。  
 
 现在我们进入另一个MC开头的资源组，这个资源组是包含了我们创建服务得所有实体对象得资源组： 
 
-![AKS](image/AKS.png)    
+![mc_group](image/mc_group.png)    
  
-包括虚拟网络，路由表，网络安全组，以及agent节点等等；
-这时我们已经在相应得节点上安装好了kubeDNS, heapster以及kubelets使得kubernetes集群已经可以直接工作了。
-我们现在回到cmd工具中查看集群创建情况：  
-```
-az aks create -g K8SCluster -n K8SDeployment -c 1 -k 1.7.7 --generate-ssh-keys
-{| Finished ..
-  "id": "/subscriptions/f270f3f0-a81d-4673-b27a-b989fab83ca5/resourcegroups/K8SCluster/providers/Microsoft.ContainerService/managedClusters/K8SDeployment",
-  "location": "eastus",
-  "name": "K8SDeployment",
-  "properties": {
-    "accessProfiles": null,
-    "agentPoolProfiles": [
-      {
-        "count": 1,
-        "dnsPrefix": null,
-        "fqdn": null,
-        "name": "nodepool1",
-        "osDiskSizeGb": null,
-        "osType": "Linux",
-        "ports": null,
-        "storageProfile": "ManagedDisks",
-        "vmSize": "Standard_D1_v2",
-        "vnetSubnetId": null
-      }
-    ],
-    "dnsPrefix": "K8SDeploym-K8SCluster-f270f3",
-    "fqdn": "k8sdeploym-k8scluster-f270f3-c0f7ccd4.hcp.eastus.azmk8s.io",
-    "kubernetesVersion": "1.7.7",
-    "linuxProfile": {
-      "adminUsername": "azureuser",
-      "ssh": {
-        "publicKeys": [
-          {
-            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4f77xevGCOZPMRmtB626eymW5f6b1usJbp9Qd7O0wjZX9d/hCme98EuZ0wQ6d/BHlPNc51FysIX9mPaFPIQ1+szM0C8Uzr9HYxtkvs2EoJPKdoCtGRyLjTGKPdhdg+1w7h1P8MVMnZgzwhcvD0kxRLPxQ1LT9Scwq5kI0px0nvYTCojtdj6lIMuomHUs3mX/zpF6tHOcVlc3bNbXPojBqLeJiEDLzXPSRgsubfjmLgbvisc9qSDSGHpQMYWFnBm37SKL1xp4ClE0MWYOObGQyBEBnNOQ3i5aIRv5Xch/7+OIj63D2KVSANIJq3ayT4KOjtMy6wQEbQEoBWsIJTGbl wenjingzhao0124@outlook.com\n"
-          }
-        ]
-      }
-    },
-    "provisioningState": "Succeeded",
-    "servicePrincipalProfile": {
-      "clientId": "8e14b7bd-06a4-4e1b-9104-36f02ea9dbdb",
-      "keyVaultSecretRef": null,
-      "secret": null
-    }
-  },
-  "resourceGroup": "K8SCluster",
-  "tags": null,
-  "type": "Microsoft.ContainerService/ManagedClusters"
-}
-```
-集群创建成功后可以看到如上的结果。
+包括虚拟网络，路由表，网络安全组，以及agent节点等等；  
+
+这时我们已经在相应得节点上安装好了kubeDNS, heapster以及kubelets使得kubernetes集群已经可以直接工作了。  
+
 
