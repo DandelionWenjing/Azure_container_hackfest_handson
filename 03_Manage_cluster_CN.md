@@ -40,9 +40,6 @@ az aks list -o table
 ```
 
 列出结果如下：  
-```
-az aks list -o table
-```
 ![akslist](/image/akslist.png)  
 
 #### 获取集群节点情况：  
@@ -123,16 +120,11 @@ az aks upgrade --name K8SDeployment --resource-group K8SCluster --kubernetes-ver
 
 在升级过程中会提示unavailable，但是现有的服务不会go down，只是不能部署新服务到集群中。
 
-升级完成结果如下：
-![upgrade](/image/upgrade.png) 
-
-
 #### 确认是否升级成功：
 
 列表得到kubernetes集群当前版本信息：
 ```
 az aks show --name K8SDeployment --resource-group K8SCluster --output table
 ```
-![getversion2](/image/getversion2.png) 
 
 
