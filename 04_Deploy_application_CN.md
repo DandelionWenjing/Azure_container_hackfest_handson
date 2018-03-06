@@ -65,9 +65,9 @@ docker-compose up -d
 ```
 ![docker_compose2](image/docker_compose2.png) 
 
-使用http://localhost:8080测试，如果8080端口被占了的话就换端口号。  
+使用http://localhost:8080 测试，如果8080端口被占了的话就换端口号。  
 
-![compose_result](image/docker_compose2.png) 
+![compose_result](image/compose_result.png) 
 
 #### 创建Azure Container Registry:
 
@@ -111,104 +111,114 @@ docker tag azure-vote-front registry0124.azurecr.io/azure-vote-front:redis-v1
 docker push registry0124.azurecr.io/azure-vote-front:redis-v1
 docker images
 ```
+![acr_push1](image/acr_push1.png)   
 
-REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
-azure-vote-front                           latest              8a011828251c        33 minutes ago      935MB
-registry0124.azurecr.io/azure-vote-front   redis-v1            8a011828251c        33 minutes ago      935MB
-tiangolo/uwsgi-nginx-flask                 python3.6           cb32ec9f1c26        3 weeks ago         935MB
-redis                                      latest              1e70071f4af4        4 weeks ago         107MB
+![acr_push2](image/acr_push2.png)  
 
 ##### 返回推送到容器注册表的结果：
 ```
 az acr repository list --name Registry0124 --output table
 ```
-az acr repository list --name Registry0124 --output table
-Result
-----------------
-azure-vote-front
+![acr_list](image/acr_list.png)  
 
-运行应用程序：
-下面再将应用程序部署到容器集群上，与之前从docker hub拉镜像不同的是，这次我们是从registry里面拉镜像，所以把镜像拉取地址换成registry的loginserver;
-进入voting文件夹下，部署相应的service和deployment：
-kubectl create -f azure-vote-all-in-one-redis.yml
+##### 运行应用程序：  
+
+下面再将应用程序部署到容器集群上，与之前从docker hub拉镜像不同的是，这次我们是从registry里面拉镜像，所以把镜像拉取地址换成registry的loginserver;  
+
+将"Microsoft/azure-vote-front"更改为"image: registry0124.azurecr.io/azure-vote-front";  
+
+将service和deployment的"name: azure-vote-back"更改为"name: azure-vote-back1";  
+
+将service和deployment的"name: azure-vote-front"更改为"name: azure-vote-front1";  
+
+进入voting文件夹下，部署相应的service和deployment：  
+```
+kubectl create -f azure-vote-all-in-one-redis.yaml
+```
+结果如下：
+![kube_create2](image/kube_create2.png) 
  
 后续步骤有关如何查看service，找IP，与之前类似；
 
 
-管理应用程序：
-•	缩放pods:
-这里我们只看默认namespace下面的pods情况；
-kubectl get pods –all-namespaces
+##### 管理应用程序：  
+
+* 缩放pods:  
+
+这里我们只看默认namespace下面的pods情况；  
+```
 kubectl get pods --all-namespaces
-NAMESPACE     NAME                                                         READY     STATUS    RESTARTS   AGE
-default       azure-vote-back-4149398501-xfjn6                             1/1       Running   0          5h
-default       azure-vote-front-1874756303-j6wsj                            1/1       Running   1          17h
-default       jazzy-macaw-nginx-ingress-controller-1444582388-gj5qm        1/1       Running   1          17h
-default       jazzy-macaw-nginx-ingress-default-backend-3715337617-xxzdp   1/1       Running   0          5h
-kube-system   heapster-342135353-ph7tq                                     2/2       Running   2          17h
-kube-system   kube-dns-v20-1654923623-h4jrb                                3/3       Running   3          17h
-kube-system   kube-dns-v20-1654923623-jz4lv                                3/3       Running   0          5h
-kube-system   kube-proxy-7nslj                                             1/1       Running   0          5h
-kube-system   kube-proxy-gmrr8                                             1/1       Running   1          17h
-kube-system   kube-proxy-vmfhv                                             1/1       Running   1          17h
-kube-system   kube-svc-redirect-wp5qw                                      1/1       Running   1          17h
-kube-system   kube-svc-redirect-wqbst                                      1/1       Running   1          17h
-kube-system   kube-svc-redirect-zk2pg                                      1/1       Running   0          5h
-kube-system   kubernetes-dashboard-6fc8cf9586-fs62j                        1/1       Running   2          17h
-kube-system   tiller-deploy-352283156-hdl8b                                1/1       Running   0          5h
-kube-system   tunnelfront-748d6946db-jm7ph                                 1/1       Running   1          17h
+```
+![getpods2](image/getpods2.png) 
 
-可以看到建立号集群后Pods中只有kube-system namespace下面创建的系统pods,而在我们进行部署后，default namespace下面就会有我们部署成功的pods显示。
-有两次部署，所以这里是不同的front和back的pods；
-•	扩展pods数量：
-kubectl scale --replicas=5 deployment/azure-vote-front
-kubectl scale --replicas=5 deployment/azure-vote-front
-deployment "azure-vote-front" scaled
+可以看到建立好集群后Pods中只有kube-system namespace下面创建的系统pods,而在我们进行部署后，default namespace下面就会有我们部署成功的pods显示。  
 
+有两次部署，所以这里是不同的front和back的pods；  
+
+* 扩展pods数量：  
+```
+kubectl scale --replicas=5 deployment/azure-vote-front
+```
+![scale2](image/scale2.png) 
+
+```
 kubctl get pods
-kubectl get pods
-NAME                                                         READY     STATUS              RESTARTS   AGE
-azure-vote-back-4149398501-xfjn6                             1/1       Running             0          5h
-azure-vote-front-1874756303-778wg                            0/1       ContainerCreating   0          8s
-azure-vote-front-1874756303-j6wsj                            1/1       Running             1          17h
-azure-vote-front-1874756303-k8qpd                            0/1       ContainerCreating   0          8s
-azure-vote-front-1874756303-mswvz                            0/1       ContainerCreating   0          8s
-azure-vote-front-1874756303-sdv6f                            0/1       ContainerCreating   0          8s
-jazzy-macaw-nginx-ingress-controller-1444582388-gj5qm        1/1       Running             1          17h
-jazzy-macaw-nginx-ingress-default-backend-3715337617-xxzdp   1/1       Running             0          5h
+```
+![getpods3](image/getpods3.png)
 
-•	自动缩放pods:
-根据CPU利用率或者其他指标可以自动缩放Pods:
+* 自动缩放pods:  
+
+根据CPU利用率或者其他指标可以自动缩放Pods:  
+```
 kubectl autoscale deployment azure-vote-front --cpu-percent=50 --min=3 --max=10
-kubectl autoscale deployment azure-vote-front --cpu-percent=50 --min=3 --max=10
-deployment "azure-vote-front" autoscaled
+```
+![autoscale](image/autoscale.png)   
 
-若CPU利用率超过50%，则扩展到10个pods;
-查看自动缩放状态：
-kubectl get hpa
-kubectl get hpa
-NAME               REFERENCE                     TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
-azure-vote-front   Deployment/azure-vote-front   <unknown> / 50%   3         10        5          44s
+若CPU利用率超过50%，则扩展到10个pods;  
 
-这样设置的结果为：
-当CPU利用率达到50%以上，pod扩展成10个，当CPU利用率处于最小负荷状态几分钟后，pod缩成3个。
-更新应用程序：
-更新应用程序即更新它的镜像；
-更新过程包括：更新代码->打包镜像->推送到镜像仓库->更新部署
-•	更新应用程序前端文字：
-更新config_file.cfg文件：该文件是前端文件；
-文件地址为：azure-voting-app-redis\azure-vote\azure-vote
-•	重新创建前端镜像：
+* 查看自动缩放状态：  
+```
+kubectl get hpa
+```
+![gethpa](image/gethpa.png) 
+
+这样设置的结果为：  
+
+当CPU利用率达到50%以上，pod扩展成10个，当CPU利用率处于最小负荷状态几分钟后，pod缩成3个。  
+
+* 更新应用程序：  
+
+更新应用程序即更新它的镜像；  
+
+更新过程包括：更新代码->打包镜像->推送到镜像仓库->更新部署  
+
+* 更新应用程序前端文字：  
+
+更新config_file.cfg文件：该文件是前端文件；  
+
+文件地址为：azure-voting-app-redis\azure-vote\azure-vote  
+
+比如将"VOTE1VALUE = 'Cats'" 更改为"VOTE1VALUE = 'Cows'";
+
+* 重新创建前端镜像：  
+```
 docker-compose up –-build -d
---build表示重新创建镜像；
--d表示在backgroud运行容器；
-•	测试容器是否运行成功：
- 
+```
+![docker_compose3](image/docker_compose3.png)  
 
-•	重新标记和推送镜像仓库：
+--build表示重新创建镜像； -d表示在backgroud运行容器；  
+
+* 测试容器是否运行成功：  
+![docker_compose4](image/docker_compose4.png) 
+
+* 重新标记和推送镜像仓库：  
+```
 docker tag azure-vote-front registry0124.azurecr.io/azure-vote-front:redis-v2
- 
-推送镜像：
+```
+查看镜像创建情况： 
+![docker_images](image/docker_images.png) 
+
+* 推送镜像：
 docker push registry0124.azurecr.io/azure-vote-front:redis-v2
 
 
