@@ -43,6 +43,10 @@ cd aci-connector-k8s
 kubectl create -f examples/example-aci-connector.yaml 
 ```
 ![aci_connector](image/aci_connector.png)
+* 获取 nodes 信息：   
+
+这时可以看到我们创建了一个虚拟的节点：
+![aci_getnodes](image/aci_getnodes.png)
 
 * 获取 pods 信息：   
 ```
@@ -60,10 +64,17 @@ kubectl create -f examples/nginx-pod.yaml
 kubectl get pods 
 ```
 
+```
 kubectl get pods -w 
+```
 详细列出 namespace 中所有 pods 的信息: 
+
+```
 kubectl get pods -o wide 
+```
+![aci_getpods2](image/aci_getpods2.png)  
+
 可以看到 nginx pod 在 aci-connector node 中。 
-curl <nginxs-ip> 
+
  
  
