@@ -60,13 +60,6 @@ kubectl create -f examples/nginx-pod.yaml
 ```
 ![nginx_pod](image/nginx_pod.png) 
 
-```
-kubectl get pods 
-```
-
-```
-kubectl get pods -w 
-```
 详细列出 namespace 中所有 pods 的信息: 
 
 ```
