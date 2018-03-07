@@ -2,12 +2,12 @@
 
 下载代码到本地：
 ```
-git clone https://github.com/DandelionWenjing/stickerstore.git
+git clone https://github.com/DandelionWenjing/Microservice.git
 ```
 
 #### 进入微服务应用, 在多个服务文件夹下用dockerfile构建镜像：
 ```
-cd StickerStore
+cd Microservice/StickerStore
 docker build -t registry0124.azurecr.io/webstore:1.0.0 Webstore/.
 docker build -t registry0124.azurecr.io/statusservice:1.0.0 StatusService/.
 docker build -t registry0124.azurecr.io/printingservice:1.0.0 PrintingService/.
@@ -77,16 +77,26 @@ kubectl scale --replicas 1 deployment printingservice-deployment
 ```
 cd PrintingService
 ```
-更改printing服务的前端文件中68行： version版本更改；  
+更改printing服务的前端文件中68行： version版本更改；   
+
+重新构建应用程序
 
 ```
-docker build -t registry0124.azurecr.io/printingservice:1.0.0 PrintingService/.
-
+docker build -t registry0124.azurecr.io/printingservice:1.0.0 PrintingService/.  
+```
+将应用程序新版本推到容器注册表： 
+```
 docker push registry0124.azurecr.io/printingservice:1.0.1
-
+```
+设置需要更新的镜像：
+```
 kubectl set image deployment/printingservice-deployment printingservice=registry0124.azurecr.io/printingservice:1.0.1
-
+```
+进行部署的更新：  
+```
 kubectl rollout history deployment/printingservice-deployment
-
+```
+回到上一个部署版本：
+```
 kubectl rollout undo deployment/printingservice-deployment --to-revision=1  
 ```
