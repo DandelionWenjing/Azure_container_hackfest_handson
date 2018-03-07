@@ -1,8 +1,13 @@
 ## 微服务应用的构建和部署
 
+下载代码到本地：
+```
+git clone https://github.com/DandelionWenjing/stickerstore.git
+```
+
 #### 进入微服务应用, 在多个服务文件夹下用dockerfile构建镜像：
 ```
-cd Microservices\StickerStore
+cd StickerStore
 docker build -t registry0124.azurecr.io/webstore:1.0.0 Webstore/.
 docker build -t registry0124.azurecr.io/statusservice:1.0.0 StatusService/.
 docker build -t registry0124.azurecr.io/printingservice:1.0.0 PrintingService/.
